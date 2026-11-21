@@ -27,34 +27,10 @@ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln);white-s
 .hb{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}.hb i{display:block;height:14px;border-radius:7px;background:var(--out)}.hb span:first-child{width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
 #qrw{display:flex;flex-wrap:wrap;gap:10px}.lbl{width:170px;border:1px dashed var(--mu);border-radius:10px;padding:8px;text-align:center;font-size:12px;background:#fff;color:#000}.lbl div{display:flex;justify-content:center;margin-bottom:4px}
-#login{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;background:linear-gradient(135deg,#0a4f3a,#0f6b4f,#14a06f,#0a4f3a);background-size:300% 300%;animation:bg 14s ease infinite}
-@keyframes bg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
-.bl{position:absolute;border-radius:50%;background:rgba(255,255,255,.1);animation:fl 12s ease-in-out infinite}
-.b1{width:260px;height:260px;left:-60px;top:-60px}.b2{width:180px;height:180px;right:8%;bottom:10%;animation-delay:-4s}.b3{width:120px;height:120px;left:18%;bottom:-30px;animation-delay:-8s}
-@keyframes fl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-34px) scale(1.08)}}
-.lc{position:relative;width:100%;max-width:360px;padding:28px 24px;border-radius:24px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);box-shadow:0 20px 50px rgba(0,0,0,.25);color:#fff;text-align:center;animation:up .7s cubic-bezier(.2,.8,.2,1) both}
-@keyframes up{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
-.logo{animation:pop .8s .15s cubic-bezier(.2,1.4,.4,1) both}
-@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-12deg)}to{opacity:1;transform:none}}
-.lc h2{margin:10px 0 2px;font-size:24px}.sub{margin:0 0 18px;opacity:.85;font-size:14px}
-.f{position:relative;display:block;margin-bottom:12px;text-align:left}
-.f input{width:100%;padding:19px 14px 6px;border-radius:14px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;transition:.2s}
-.f input:focus{outline:0;background:rgba(255,255,255,.2);border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)}
-.f span{position:absolute;left:14px;top:13px;font-size:15px;opacity:.8;pointer-events:none;transition:.2s}
-.f input:focus+span,.f input:not(:placeholder-shown)+span{top:5px;font-size:11px;opacity:.95}
-.eye{position:absolute;right:8px;top:9px;padding:4px 8px;font-size:12px;background:rgba(255,255,255,.2)}
-#go{position:relative;width:100%;padding:13px;margin-top:4px;border-radius:14px;background:#fff;color:#0f6b4f;font-weight:700;transition:transform .15s,box-shadow .2s}
-#go:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25)}#go:active{transform:scale(.98)}
-#go.ld span{opacity:0}#go.ld::after{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;border:3px solid rgba(15,107,79,.25);border-top-color:#0f6b4f;border-radius:50%;animation:sp .7s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.lc.sh{animation:shake .45s}
-@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-#msg{margin:10px 0 0;min-height:20px;font-size:14px;color:#ffd7cf}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .hide{display:none!important}
 @media print{body *{visibility:hidden}#qrw,#qrw *{visibility:visible}#qrw{position:absolute;left:0;top:0}}
 
-svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:260px}
+svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:300px}
 .bar input,.bar select,.bar button{min-height:40px}
 /* ===== Desktop: menu samping + KPI satu baris ===== */
 @media(min-width:900px){
@@ -85,24 +61,92 @@ svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:260px}
   .hb span:first-child{width:34%}
   .lbl{width:calc(50% - 5px)}
 }
+.rl{margin-left:8px;padding:3px 11px;border-radius:99px;background:rgba(255,255,255,.2);font-size:12px;font-weight:600;vertical-align:middle;white-space:nowrap}
+
+/* ===== Tema baru: kaca ungu-biru ===== */
+:root{--bg:linear-gradient(135deg,#c7d0f4,#dfe6fb 45%,#cdeaf8);--card:rgba(255,255,255,.58);--sol:#fff;--tx:#1f2547;--mu:#6b7194;--pr:#5b66ea;--ln:rgba(120,130,200,.2);--in:#5b6cff;--out:#e0559c;--grad:linear-gradient(135deg,#6a6ff0,#4f8df5);--glow:0 10px 30px rgba(90,100,200,.14)}
+@media(prefers-color-scheme:dark){:root{--bg:linear-gradient(135deg,#171a3a,#1d2250 50%,#142a45);--card:rgba(255,255,255,.07);--sol:#1b1f40;--tx:#e9ecff;--mu:#9aa3d0;--pr:#8c95ff;--ln:rgba(255,255,255,.12);--glow:0 10px 30px rgba(0,0,0,.3)}}
+body{background:var(--bg) fixed;min-height:100vh}
+header{background:var(--grad);box-shadow:0 6px 24px rgba(79,100,240,.3)}
+.card,.k{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.55);box-shadow:var(--glow);border-radius:22px}
+@media(prefers-color-scheme:dark){.card,.k{border-color:rgba(255,255,255,.1)}}
+button{background:var(--grad)}button.g{background:transparent}
+.k b{font-size:26px}
+.k:nth-child(2),.k:nth-child(4),.k:nth-child(5),.k:nth-child(6){color:#fff;border-color:transparent}.k:nth-child(2) span,.k:nth-child(4) span,.k:nth-child(5) span,.k:nth-child(6) span{color:rgba(255,255,255,.9)}
+.k:nth-child(2){background:linear-gradient(135deg,#6aa8ff,#4f8df5)}
+.k:nth-child(4){background:linear-gradient(135deg,#ff7ad9,#c34bff)}
+.k:nth-child(5){background:linear-gradient(135deg,#8ee0ff,#5aa9f5)}
+.k:nth-child(6){background:linear-gradient(135deg,#a98bff,#7a6bff)}
+.tabs button{background:var(--card);border:1px solid rgba(255,255,255,.55);border-radius:14px}.tabs button.on{background:var(--grad);color:#fff;border-color:transparent}
+@media(min-width:900px){
+  #tabs{background:linear-gradient(180deg,#5a4fcf,#3f6fe0);padding:14px 10px;border-radius:24px;box-shadow:var(--glow);gap:6px}
+  #tabs button{background:transparent;color:#e8ecff;border:0}#tabs button.on{background:#5b8cff;color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+}
+.p{background:rgba(120,130,200,.18)}
+.lbl{border-color:var(--mu)}
+/* ===== Halaman login dua kolom ===== */
+#login{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto;background:radial-gradient(circle at 88% 8%,rgba(180,140,255,.45),transparent 38%),radial-gradient(circle at 8% 92%,rgba(120,160,255,.4),transparent 40%),var(--bg)}
+.lw{display:grid;grid-template-columns:1.05fr 1fr;width:100%;max-width:960px;background:var(--sol);border-radius:28px;padding:22px;gap:34px;box-shadow:0 30px 70px rgba(70,80,170,.25);animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+.lp{background:linear-gradient(160deg,#5a5ff0,#4a7df0 60%,#6a9bff);border-radius:30px;padding:34px 28px 22px;color:#fff;display:flex;flex-direction:column;min-height:440px;position:relative;overflow:hidden}
+.lp::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.1);right:-80px;top:-80px}
+.lp h2{margin:0 0 10px;font-size:26px;line-height:1.25;position:relative}.lp p{margin:0;opacity:.9;font-size:14px;max-width:300px;position:relative}
+.ill{margin-top:auto;width:100%;height:auto}
+.fa{animation:fl 5s ease-in-out infinite}.fb{animation:fl 6.5s ease-in-out -2s infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.lc{display:flex;flex-direction:column;justify-content:center;padding:8px 14px 8px 0;color:var(--tx);text-align:center}
+.logo{align-self:center;animation:pop .8s .15s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-12deg)}to{opacity:1;transform:none}}
+.bn{margin:6px 0 14px;font-size:18px;color:var(--pr)}.lc h1{margin:0;font-size:28px}.sub{margin:4px 0 20px;color:var(--mu);font-size:14px}
+.f{position:relative;display:block;margin-bottom:12px}
+.f input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid transparent;background:rgba(120,130,200,.12);color:var(--tx);transition:.2s}
+.f input:focus{outline:0;border-color:var(--pr);background:transparent;box-shadow:0 0 0 4px rgba(91,102,234,.15)}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);padding:5px 10px;font-size:12px;background:transparent!important;color:var(--mu);box-shadow:none}
+.fp{text-align:right;margin:-4px 0 14px;font-size:13px}.fp a{color:var(--mu);text-decoration:none}.fp a:hover{color:var(--pr)}
+#go{position:relative;width:100%;padding:14px;border-radius:12px;background:var(--grad);color:#fff;font-weight:700;box-shadow:0 8px 20px rgba(79,100,240,.35);transition:transform .15s,box-shadow .2s}
+#go:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(79,100,240,.45)}#go:active{transform:scale(.98)}
+#go.ld span{opacity:0}#go.ld::after{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lw.sh{animation:shake .45s}@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+#msg{margin:12px 0 0;min-height:20px;font-size:14px;color:var(--bad)}
+@media(max-width:800px){.lw{grid-template-columns:1fr;padding:22px 18px;gap:0;max-width:420px}.lp{display:none}.lc{padding:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div id="login">
-  <i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i>
-  <div class="lc">
-    <svg class="logo" viewBox="0 0 64 64" width="68" height="68" aria-hidden="true"><rect width="64" height="64" rx="18" fill="rgba(255,255,255,.2)"/><path d="M14 28 32 14l18 14v22H14z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><rect x="25" y="34" width="14" height="16" rx="2" fill="#fff"/></svg>
-    <h2>Warehouse</h2>
-    <p class="sub">Masuk untuk melihat dashboard gudang</p>
-    <label class="f"><input id="em" type="email" placeholder=" " autocomplete="username"><span>Email</span></label>
-    <label class="f"><input id="pw" type="password" placeholder=" " autocomplete="current-password"><span>Password</span><button type="button" id="eye" class="eye" aria-label="Tampilkan password">Lihat</button></label>
-    <button id="go"><span>Masuk</span></button>
-    <p id="msg"></p>
+  <div class="lw">
+    <div class="lp">
+      <h2>Kelola gudang lebih mudah dengan dashboard kami</h2>
+      <p>Pantau stok, kedaluwarsa, dan transaksi barang masuk dan keluar dalam satu tempat.</p>
+      <svg class="ill" viewBox="0 0 320 190" aria-hidden="true">
+        <ellipse cx="160" cy="178" rx="135" ry="8" fill="rgba(0,0,0,.2)"/>
+        <g fill="#fff" opacity=".9"><rect x="36" y="34" width="8" height="144" rx="3"/><rect x="276" y="34" width="8" height="144" rx="3"/><rect x="36" y="92" width="248" height="7" rx="3"/><rect x="36" y="166" width="248" height="7" rx="3"/></g>
+        <g class="fa"><rect x="54" y="52" width="58" height="40" rx="6" fill="#ffb86b"/><rect x="77" y="52" width="12" height="40" fill="#ffd9a8"/></g>
+        <g class="fb"><rect x="124" y="64" width="46" height="28" rx="6" fill="#ff7ad9"/><rect x="142" y="64" width="10" height="28" fill="#ffc2ee"/></g>
+        <rect x="186" y="46" width="70" height="46" rx="6" fill="#8ee0ff"/><rect x="214" y="46" width="12" height="46" fill="#d6f4ff"/>
+        <rect x="58" y="124" width="76" height="42" rx="6" fill="#a98bff"/><rect x="88" y="124" width="12" height="42" fill="#d8caff"/>
+        <rect x="150" y="136" width="50" height="30" rx="6" fill="#ffb86b"/><rect x="170" y="136" width="10" height="30" fill="#ffd9a8"/>
+        <g class="fb"><rect x="214" y="118" width="54" height="48" rx="6" fill="#6aa8ff"/><rect x="236" y="118" width="10" height="48" fill="#bcd8ff"/></g>
+        <g class="fa"><rect x="206" y="6" width="96" height="30" rx="10" fill="#fff"/><rect x="216" y="22" width="10" height="8" rx="2" fill="#6a6ff0"/><rect x="230" y="16" width="10" height="14" rx="2" fill="#4f8df5"/><rect x="244" y="12" width="10" height="18" rx="2" fill="#ff7ad9"/><rect x="260" y="14" width="34" height="5" rx="2.5" fill="#cfd3ee"/><rect x="260" y="23" width="22" height="5" rx="2.5" fill="#e3e6f6"/></g>
+      </svg>
+    </div>
+    <div class="lc">
+      <svg class="logo" viewBox="0 0 64 64" width="46" height="46" aria-hidden="true"><rect width="64" height="64" rx="18" fill="url(#lg)"/><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a6ff0"/><stop offset="1" stop-color="#4f8df5"/></linearGradient></defs><path d="M14 28 32 14l18 14v22H14z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><rect x="25" y="34" width="14" height="16" rx="2" fill="#fff"/></svg>
+      <b class="bn">Warehouse</b>
+      <h1>Selamat Datang</h1>
+      <p class="sub">Silakan masuk ke akun Anda</p>
+      <label class="f"><input id="em" type="email" placeholder="Email" autocomplete="username"></label>
+      <label class="f"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button type="button" id="eye" class="eye" aria-label="Tampilkan password">Lihat</button></label>
+      <div class="fp"><a href="#" id="fp">Lupa password?</a></div>
+      <button id="go"><span>Masuk</span></button>
+      <p id="msg"></p>
+    </div>
   </div>
 </div>
 
 <div id="app" class="hide">
-<header><h1>Warehouse <span id="who" class="av"></span></h1><button id="out">Keluar</button></header>
+<header><h1>Warehouse <span id="who" class="av"></span><span id="rl" class="rl"></span></h1><button id="out">Keluar</button></header>
 <main>
   <div class="grid" id="kpi"></div>
   <div class="tabs" id="tabs"></div>
@@ -137,7 +181,7 @@ svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:260px}
   </section>
 
   <section id="t5" class="card hide">
-    <div class="bar"><b style="flex:1">Label QR semua batch (bisa dipindai di aplikasi)</b><button id="pq">Cetak</button></div>
+    <div class="bar"><b style="flex:1">Label QR semua batch (bisa dipindai di aplikasi)</b><button id="pp">Unduh PDF</button><button id="pq" class="g">Cetak</button></div>
     <div id="qrw"></div>
   </section>
 
@@ -155,7 +199,7 @@ svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:260px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getAuth,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,doc,onSnapshot,collection,query,where,orderBy,limit,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const cfg={apiKey:"AIzaSyAZ7bQV2HblzVuL6FsUT57u3KipQb6XxGM",authDomain:"warehouse-7f2d8.firebaseapp.com",projectId:"warehouse-7f2d8",appId:"1:92141578835:web:5d97e790763981cb1c34a6"};
@@ -171,12 +215,19 @@ const todayUTC=()=>{const n=new Date();return Date.UTC(n.getFullYear(),n.getMont
 function initials(u){const src=(u.displayName||u.email||"?").split("@")[0];
   const w=src.split(/[\s._\-0-9]+/).filter(Boolean);
   return((w.length>1?w[0][0]+w[1][0]:(w[0]||"?").slice(0,2))).toUpperCase()}
+// Peran akun. Samakan dengan AllowedUsers.kt dan firestore.rules (email huruf kecil semua).
+const ROLES={"Admin utama":["alizaghazia@gmail.com"],"Admin barang masuk":["admin2@example.com"],"Admin barang keluar":["admin3@example.com"],"User":["user@example.com"]};
+const roleOf=e=>{e=(e||"").trim().toLowerCase();return Object.keys(ROLES).find(r=>ROLES[r].includes(e))||"User"};
+let isMain=false;
 let inv={items:{},stats:{}},moves=[],bat=[],items=[],unsub=null,logsDone=false;
 
-$("go").onclick=async()=>{const b=$("go"),c=document.querySelector(".lc");$("msg").textContent="";b.classList.add("ld");b.disabled=true;
+$("go").onclick=async()=>{const b=$("go"),c=document.querySelector(".lw");$("msg").textContent="";b.classList.add("ld");b.disabled=true;
   try{await signInWithEmailAndPassword(auth,$("em").value.trim(),$("pw").value)}
   catch(e){$("msg").textContent="Email atau password salah";c.classList.remove("sh");void c.offsetWidth;c.classList.add("sh")}
   b.classList.remove("ld");b.disabled=false};
+$("fp").onclick=async e=>{e.preventDefault();const m=$("em").value.trim();if(!m){$("msg").textContent="Isi email dulu, lalu tekan Lupa password.";return}
+  try{await sendPasswordResetEmail(auth,m);$("msg").style.color="var(--ok)";$("msg").textContent="Tautan reset dikirim ke "+m+" (cek juga folder spam)."}
+  catch(x){$("msg").style.color="";$("msg").textContent="Gagal mengirim tautan reset. Periksa email Anda."}};
 $("eye").onclick=()=>{const p=$("pw"),h=p.type==="password";p.type=h?"text":"password";$("eye").textContent=h?"Sembunyi":"Lihat"};
 $("pw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
 $("out").onclick=()=>signOut(auth);
@@ -185,7 +236,10 @@ onAuthStateChanged(auth,u=>{
   if(unsub){unsub();unsub=null}
   $("login").classList.toggle("hide",!!u);$("app").classList.toggle("hide",!u);
   if(!u)return;
-  $("who").textContent=initials(u);logsDone=false;
+  $("who").textContent=initials(u);
+  const role=roleOf(u.email);isMain=role==="Admin utama";$("rl").textContent=role;
+  $("tabs").children[6].classList.toggle("hide",!isMain);   // tab Login hanya untuk admin utama
+  if(!isMain&&!$("t6").classList.contains("hide"))show(0);logsDone=false;
   unsub=onSnapshot(doc(db,"warehouse","main","data","inventory"),s=>{
     inv=s.exists()?{items:s.data().items||{},stats:s.data().stats||{}}:{items:{},stats:{}};render();
   },()=>{signOut(auth);$("msg").textContent="Email ini tidak punya akses ke data."});
@@ -237,10 +291,14 @@ function drawTrx(){const r=trxRows();
   $("mc").textContent=r.length+" transaksi"+(moves.length>=2000?" (dibatasi 2.000)":"");drawTop()}
 ["q","ef","mq","mt"].forEach(id=>$(id).oninput=()=>{id==="q"?drawStock():id==="ef"?drawExp():drawTrx()});
 
-function bars(id,L,A,B){const mx=Math.max(1,...A,...B),W=L.length*44+16,H2=150;$(id).setAttribute("viewBox","0 0 "+W+" 190");
-  $(id).innerHTML=L.map((l,k)=>{const x=k*44+8,hi=A[k]/mx*H2,ho=B[k]/mx*H2;
-    return`<rect x="${x}" y="${H2-hi+10}" width="15" height="${hi}" rx="3" fill="var(--in)"/><rect x="${x+17}" y="${H2-ho+10}" width="15" height="${ho}" rx="3" fill="var(--out)"/><text x="${x+16}" y="178" font-size="11" text-anchor="middle" fill="var(--mu)">${l}</text>`}).join("")
-   +`<text x="8" y="10" font-size="11" fill="var(--in)">■ Masuk</text><text x="70" y="10" font-size="11" fill="var(--out)">■ Keluar</text>`}
+function bars(id,L,A,B){const n=L.length,mx=Math.max(1,...A,...B),W=matchMedia("(max-width:700px)").matches?n*44+16:760,Hh=140,x=k=>28+k*(W-56)/Math.max(1,n-1),y=v=>30+Hh-v/mx*Hh;
+  const path=V=>V.map((v,k)=>k?`C${(x(k-1)+x(k))/2},${y(V[k-1])} ${(x(k-1)+x(k))/2},${y(v)} ${x(k)},${y(v)}`:`M${x(0)},${y(v)}`).join(" ");
+  const area=(V,c,g)=>`<path d="${path(V)} L${x(n-1)},${30+Hh} L${x(0)},${30+Hh}Z" fill="url(#${g})"/><path d="${path(V)}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/>`;
+  const gd=(g,c)=>`<linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".45"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient>`;
+  $(id).setAttribute("viewBox","0 0 "+W+" 200");
+  $(id).innerHTML=`<defs>${gd(id+"a","#5b6cff")}${gd(id+"b","#e0559c")}</defs>`+area(B,"#e0559c",id+"b")+area(A,"#5b6cff",id+"a")
+   +L.map((l,k)=>`<text x="${x(k)}" y="192" font-size="11" text-anchor="middle" fill="var(--mu)">${l}</text>`).join("")
+   +`<text x="8" y="14" font-size="12" fill="#5b6cff">■ Masuk</text><text x="76" y="14" font-size="12" fill="#e0559c">■ Keluar</text>`}
 function drawCharts(){
   const N=matchMedia("(max-width:700px)").matches?7:14;$("nd").textContent=N;
   const d=[...Array(N)].map((_,k)=>{const t=Date.now()-(N-1-k)*DAY;return[new Date(t).getDate(),inv.stats[dk(t)]||{}]});
@@ -260,11 +318,22 @@ async function loadMoves(){
     moves=s.docs.map(d=>d.data());drawTrx()}catch(e){$("mc").textContent="Gagal memuat transaksi"}}
 $("ld").onclick=loadMoves;
 
-function drawQR(){const w=$("qrw");if(w.dataset.n==bat.length+"|"+bat.map(b=>b.q).join())return;w.dataset.n=bat.length+"|"+bat.map(b=>b.q).join();w.innerHTML="";
-  bat.filter(b=>b.no!=="-").forEach(b=>{const l=document.createElement("div");l.className="lbl";const q=document.createElement("div");l.appendChild(q);
+function drawQR(){const w=$("qrw");if(typeof QRCode==="undefined"){w.textContent="Library QR gagal dimuat. Periksa koneksi internet lalu muat ulang halaman.";return}if(w.dataset.n==bat.length+"|"+bat.map(b=>b.q).join())return;w.dataset.n=bat.length+"|"+bat.map(b=>b.q).join();w.innerHTML="";
+  bat.filter(b=>b.no!=="-").forEach(b=>{const l=document.createElement("div");l.className="lbl";l.dataset.n=b.n;l.dataset.c=b.c;l.dataset.b=b.no;l.dataset.x=b.e>0?"Exp: "+fd(b.e):"Tanpa kedaluwarsa";const q=document.createElement("div");l.appendChild(q);
     l.insertAdjacentHTML("beforeend",`<b>${esc(b.n)}</b><br>Kode: ${esc(b.c)}<br>Batch: ${esc(b.no)}<br>${b.e>0?"Exp: "+fd(b.e):"Tanpa kedaluwarsa"}`);w.appendChild(l);
     new QRCode(q,{text:"WHB:"+encodeURIComponent(b.c)+":"+encodeURIComponent(b.no),width:110,height:110,correctLevel:QRCode.CorrectLevel.M})})}
-$("pq").onclick=()=>window.print();
+$("pq").onclick=()=>{try{window.print()}catch(e){alert("Browser ini tidak mendukung cetak. Gunakan tombol Unduh PDF.")}};
+// Lembar label PDF (3 kolom x 4 baris per halaman A4): berfungsi di semua browser, termasuk HP
+$("pp").onclick=()=>{const L=[...document.querySelectorAll("#qrw .lbl")];if(!L.length){alert("Belum ada label QR.");return}
+  const d=new window.jspdf.jsPDF({unit:"mm",format:"a4"}),W=60,H=68,G=7.5,M=10,cut=(t,n)=>t.length>n?t.slice(0,n-1)+"…":t;
+  L.forEach((el,i)=>{const k=i%12;if(i&&!k)d.addPage();const x=M+(k%3)*(W+G),y=M+Math.floor(k/3)*(H+2),t=el.dataset;
+    d.setDrawColor(150);d.setLineDashPattern([1.5,1.5],0);d.roundedRect(x,y,W,H,2,2);d.setLineDashPattern([],0);
+    const c=el.querySelector("canvas"),im=el.querySelector("img"),src=c?c.toDataURL("image/png"):im&&im.src;
+    if(src)d.addImage(src,"PNG",x+10,y+4,40,40);
+    d.setFont(undefined,"bold");d.setFontSize(9);d.text(cut(t.n,30),x+W/2,y+50,{align:"center"});
+    d.setFont(undefined,"normal");d.setFontSize(8);
+    d.text("Kode: "+cut(t.c,26),x+W/2,y+55,{align:"center"});d.text("Batch: "+cut(t.b,26),x+W/2,y+60,{align:"center"});d.text(t.x,x+W/2,y+65,{align:"center"})});
+  d.save("label-qr-"+dk(Date.now())+".pdf")};
 
 async function loadLogs(){logsDone=true;
   try{const a=await getDocs(collection(db,"warehouse","main","sessions"));
@@ -276,7 +345,7 @@ async function loadLogs(){logsDone=true;
 
 const tabs=["Ringkasan","Stok","Kedaluwarsa","Menipis","Transaksi","Label QR","Login"];
 $("tabs").innerHTML=tabs.map((t,i)=>`<button data-i="${i}">${t}</button>`).join("");
-function show(i){tabs.forEach((_,k)=>$("t"+k).classList.toggle("hide",k!=i));[...$("tabs").children].forEach((b,k)=>b.classList.toggle("on",k==i));if(i==6&&!logsDone)loadLogs()}
+function show(i){if(i==6&&!isMain)return;tabs.forEach((_,k)=>$("t"+k).classList.toggle("hide",k!=i));[...$("tabs").children].forEach((b,k)=>b.classList.toggle("on",k==i));if(i==6&&!logsDone)loadLogs()}
 $("tabs").onclick=e=>{const i=e.target.dataset.i;if(i!=null)show(+i)};show(0);
 
 const DS={stok:()=>({t:"Laporan Stok Warehouse",h:H.stok,r:stockRows().map(plain)}),exp:()=>({t:"Laporan Kedaluwarsa",h:H.exp,r:expRows()}),
