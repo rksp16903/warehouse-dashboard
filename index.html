@@ -2,58 +2,149 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f6b4f">
 <title>Warehouse Dashboard</title>
 <style>
 :root{--bg:#f5f3ee;--card:#fff;--tx:#17211c;--mu:#66736b;--pr:#0f6b4f;--ln:#e2e6e1;--ok:#1b8a5a;--bad:#c8472b;--warn:#c98a10;--in:#1b8a5a;--out:#e07a3f}
 @media(prefers-color-scheme:dark){:root{--bg:#0e1512;--card:#17211c;--tx:#e8efe9;--mu:#93a39a;--pr:#3fbf8f;--ln:#26332c}}
 *{box-sizing:border-box}body{margin:0;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
 header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--pr);color:#fff}
-header h1{font-size:18px;margin:0;flex:1}header small{opacity:.85}
+header h1{font-size:18px;margin:0;flex:1}.av{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;margin-left:8px;border-radius:50%;background:rgba(255,255,255,.22);font-size:12px;font-weight:700;vertical-align:middle}
 button{font:inherit;border:0;border-radius:10px;padding:8px 14px;background:var(--pr);color:#fff;cursor:pointer}
-button.ghost{background:transparent;border:1px solid var(--ln);color:var(--tx)}header button{background:rgba(255,255,255,.2)}
+button.g{background:transparent;border:1px solid var(--ln);color:var(--tx)}header button{background:rgba(255,255,255,.2)}
 main{max-width:1100px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:16px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:14px}
-.k{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:14px}.k b{display:block;font-size:26px}.k span{color:var(--mu);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.k{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:14px}.k b{display:block;font-size:24px}.k span{color:var(--mu);font-size:13px}
 .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tabs button{background:var(--card);color:var(--tx);border:1px solid var(--ln)}.tabs button.on{background:var(--pr);color:#fff}
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-input{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--tx)}
+input,select{font:inherit;padding:8px 10px;border-radius:10px;border:1px solid var(--ln);background:var(--card);color:var(--tx)}
 .wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:620px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln);white-space:nowrap}th{color:var(--mu);font-weight:600;font-size:13px}
 .p{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;background:var(--ln)}
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-#login{max-width:340px;margin:12vh auto;text-align:center}#login input{width:100%;margin-bottom:10px}
-#msg{color:var(--bad);min-height:20px;font-size:14px}.hide{display:none!important}
+.hb{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}.hb i{display:block;height:14px;border-radius:7px;background:var(--out)}.hb span:first-child{width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+#qrw{display:flex;flex-wrap:wrap;gap:10px}.lbl{width:170px;border:1px dashed var(--mu);border-radius:10px;padding:8px;text-align:center;font-size:12px;background:#fff;color:#000}.lbl div{display:flex;justify-content:center;margin-bottom:4px}
+#login{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;background:linear-gradient(135deg,#0a4f3a,#0f6b4f,#14a06f,#0a4f3a);background-size:300% 300%;animation:bg 14s ease infinite}
+@keyframes bg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.bl{position:absolute;border-radius:50%;background:rgba(255,255,255,.1);animation:fl 12s ease-in-out infinite}
+.b1{width:260px;height:260px;left:-60px;top:-60px}.b2{width:180px;height:180px;right:8%;bottom:10%;animation-delay:-4s}.b3{width:120px;height:120px;left:18%;bottom:-30px;animation-delay:-8s}
+@keyframes fl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-34px) scale(1.08)}}
+.lc{position:relative;width:100%;max-width:360px;padding:28px 24px;border-radius:24px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);box-shadow:0 20px 50px rgba(0,0,0,.25);color:#fff;text-align:center;animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
+.logo{animation:pop .8s .15s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-12deg)}to{opacity:1;transform:none}}
+.lc h2{margin:10px 0 2px;font-size:24px}.sub{margin:0 0 18px;opacity:.85;font-size:14px}
+.f{position:relative;display:block;margin-bottom:12px;text-align:left}
+.f input{width:100%;padding:19px 14px 6px;border-radius:14px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;transition:.2s}
+.f input:focus{outline:0;background:rgba(255,255,255,.2);border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)}
+.f span{position:absolute;left:14px;top:13px;font-size:15px;opacity:.8;pointer-events:none;transition:.2s}
+.f input:focus+span,.f input:not(:placeholder-shown)+span{top:5px;font-size:11px;opacity:.95}
+.eye{position:absolute;right:8px;top:9px;padding:4px 8px;font-size:12px;background:rgba(255,255,255,.2)}
+#go{position:relative;width:100%;padding:13px;margin-top:4px;border-radius:14px;background:#fff;color:#0f6b4f;font-weight:700;transition:transform .15s,box-shadow .2s}
+#go:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25)}#go:active{transform:scale(.98)}
+#go.ld span{opacity:0}#go.ld::after{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;border:3px solid rgba(15,107,79,.25);border-top-color:#0f6b4f;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.lc.sh{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+#msg{margin:10px 0 0;min-height:20px;font-size:14px;color:#ffd7cf}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.hide{display:none!important}
+@media print{body *{visibility:hidden}#qrw,#qrw *{visibility:visible}#qrw{position:absolute;left:0;top:0}}
+
+svg#c1,svg#c2{display:block;width:100%;height:auto;max-height:260px}
+.bar input,.bar select,.bar button{min-height:40px}
+/* ===== Desktop: menu samping + KPI satu baris ===== */
+@media(min-width:900px){
+  main{max-width:1280px;display:grid;grid-template-columns:210px 1fr;gap:0 18px;align-items:start;padding:20px}
+  #kpi{grid-column:1/-1;grid-template-columns:repeat(6,1fr)}
+  #tabs{grid-column:1;grid-row:2;position:sticky;top:16px;flex-direction:column;margin:0}
+  #tabs button{text-align:left;padding:11px 14px;border-radius:12px}
+  main>section{grid-column:2;min-width:0}
+  table{min-width:0}
+  header{padding:16px 28px}
+}
+/* ===== HP: menu geser, tabel jadi kartu, grafik penuh ===== */
+@media(max-width:700px){
+  body{padding-bottom:env(safe-area-inset-bottom)}
+  header{padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top))}
+  main{padding:12px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}.k{padding:12px}.k b{font-size:20px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;position:sticky;top:0;z-index:3;background:var(--bg);margin:0 -12px 12px;padding:8px 12px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}.tabs button{flex:none;white-space:nowrap}
+  .card{padding:12px;border-radius:14px}
+  .bar{gap:8px}.bar input,.bar select{flex:1 1 140px;min-width:0}.bar button{flex:1 1 auto}
+  .wrap{overflow:visible}
+  table,thead,tbody,tr,td{display:block;min-width:0}thead{display:none}
+  tr{border:1px solid var(--ln);border-radius:12px;margin-bottom:10px;padding:6px 12px}
+  td{display:flex;justify-content:space-between;align-items:center;gap:14px;white-space:normal;border:0;padding:5px 0;text-align:right;word-break:break-word}
+  td::before{content:attr(data-l);color:var(--mu);font-size:12px;text-align:left;flex:none}
+  td[colspan]::before{content:none}
+  .hb span:first-child{width:34%}
+  .lbl{width:calc(50% - 5px)}
+}
 </style>
 </head>
 <body>
-<div id="login" class="card">
-  <h2>Warehouse Dashboard</h2>
-  <input id="em" type="email" placeholder="Email" autocomplete="username">
-  <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
-  <button id="go" style="width:100%">Masuk</button>
-  <p id="msg"></p>
+<div id="login">
+  <i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i>
+  <div class="lc">
+    <svg class="logo" viewBox="0 0 64 64" width="68" height="68" aria-hidden="true"><rect width="64" height="64" rx="18" fill="rgba(255,255,255,.2)"/><path d="M14 28 32 14l18 14v22H14z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><rect x="25" y="34" width="14" height="16" rx="2" fill="#fff"/></svg>
+    <h2>Warehouse</h2>
+    <p class="sub">Masuk untuk melihat dashboard gudang</p>
+    <label class="f"><input id="em" type="email" placeholder=" " autocomplete="username"><span>Email</span></label>
+    <label class="f"><input id="pw" type="password" placeholder=" " autocomplete="current-password"><span>Password</span><button type="button" id="eye" class="eye" aria-label="Tampilkan password">Lihat</button></label>
+    <button id="go"><span>Masuk</span></button>
+    <p id="msg"></p>
+  </div>
 </div>
 
 <div id="app" class="hide">
-<header><h1>Warehouse <small id="who"></small></h1><button id="out">Keluar</button></header>
+<header><h1>Warehouse <span id="who" class="av"></span></h1><button id="out">Keluar</button></header>
 <main>
   <div class="grid" id="kpi"></div>
   <div class="tabs" id="tabs"></div>
 
-  <section id="t0" class="card"><b>Barang masuk dan keluar, 14 hari terakhir</b><div class="wrap"><svg id="chart" height="190"></svg></div></section>
+  <section id="t0" class="hide">
+    <div class="card"><b>Masuk dan keluar, <span id="nd">14</span> hari terakhir</b><div class="wrap"><svg id="c1"></svg></div></div>
+    <div class="card"><b>Tren bulanan, 6 bulan terakhir</b><div class="wrap"><svg id="c2"></svg></div></div>
+    <div class="card"><b>10 barang paling banyak keluar</b> <small id="topn" style="color:var(--mu)"></small><div id="top"></div></div>
+  </section>
 
   <section id="t1" class="card hide">
-    <div class="bar"><input id="q" placeholder="Cari nama atau kode" style="flex:1;min-width:160px">
-      <button id="xs">Excel</button><button id="ps" class="ghost">PDF</button></div>
-    <div class="wrap"><table><thead><tr><th>Kode</th><th>Nama</th><th>Batch</th><th>Sisa</th><th>Kedaluwarsa</th><th>Status</th></tr></thead><tbody id="stk"></tbody></table></div>
+    <div class="bar"><input id="q" placeholder="Cari nama atau kode" style="flex:1;min-width:160px"><button data-x="stok" data-f="xlsx">Excel</button><button class="g" data-x="stok" data-f="pdf">PDF</button></div>
+    <div class="wrap"><table id="tb1"></table></div>
   </section>
 
   <section id="t2" class="card hide">
-    <div class="bar">Dari <input id="d1" type="date"> sampai <input id="d2" type="date">
-      <button id="ld">Tampilkan</button><button id="xm">Excel</button><button id="pm" class="ghost">PDF</button><span id="mc" style="color:var(--mu)"></span></div>
-    <div class="wrap"><table><thead><tr><th>Waktu</th><th>Jenis</th><th>Barang</th><th>Batch</th><th>Jumlah</th><th>Referensi</th><th>Catatan</th></tr></thead><tbody id="mv"></tbody></table></div>
+    <div class="bar"><select id="ef"><option value="all">Semua batch berkedaluwarsa</option><option value="30">Dalam 30 hari</option><option value="0">Sudah lewat</option></select>
+      <button data-x="exp" data-f="xlsx">Excel</button><button class="g" data-x="exp" data-f="pdf">PDF</button></div>
+    <div class="wrap"><table id="tb2"></table></div>
+  </section>
+
+  <section id="t3" class="card hide">
+    <div class="bar"><b style="flex:1">Barang di bawah atau sama dengan batas minimum</b><button data-x="low" data-f="xlsx">Excel</button><button class="g" data-x="low" data-f="pdf">PDF</button></div>
+    <div class="wrap"><table id="tb3"></table></div>
+  </section>
+
+  <section id="t4" class="card hide">
+    <div class="bar">Dari <input id="d1" type="date"> sampai <input id="d2" type="date"><button id="ld">Tampilkan</button></div>
+    <div class="bar"><input id="mq" placeholder="Cari barang, batch, referensi" style="flex:1;min-width:160px"><select id="mt"><option value="">Masuk dan keluar</option><option value="IN">Masuk</option><option value="OUT">Keluar</option></select>
+      <button data-x="trx" data-f="xlsx">Excel</button><button class="g" data-x="trx" data-f="pdf">PDF</button><span id="mc" style="color:var(--mu)"></span></div>
+    <div class="wrap"><table id="tb4"></table></div>
+  </section>
+
+  <section id="t5" class="card hide">
+    <div class="bar"><b style="flex:1">Label QR semua batch (bisa dipindai di aplikasi)</b><button id="pq">Cetak</button></div>
+    <div id="qrw"></div>
+  </section>
+
+  <section id="t6" class="card hide">
+    <p id="lm" style="color:var(--mu)"></p>
+    <b>Sedang aktif</b><div class="wrap"><table id="tb6"></table></div><br>
+    <b>Riwayat login (100 terbaru)</b><div class="wrap"><table id="tb7"></table></div>
   </section>
 </main>
 </div>
@@ -61,25 +152,32 @@ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln);white-s
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,doc,onSnapshot,collection,query,where,orderBy,limit,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ISI dari Firebase Console > Project settings > Your apps > Web app (config)
 const cfg={apiKey:"AIzaSyAZ7bQV2HblzVuL6FsUT57u3KipQb6XxGM",authDomain:"warehouse-7f2d8.firebaseapp.com",projectId:"warehouse-7f2d8",appId:"1:92141578835:web:5d97e790763981cb1c34a6"};
 const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);
 const $=id=>document.getElementById(id),DAY=864e5,WARN=30;
 const nf=n=>Number(n||0).toLocaleString("id-ID");
 const dk=t=>{const d=new Date(t);return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")};
 const fd=u=>u>0?new Date(u).toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"}):"-";
-const ft=t=>new Date(t).toLocaleString("id-ID",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+const ft=t=>t?new Date(t).toLocaleString("id-ID",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}):"-";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let inv={items:{},stats:{}},moves=[],stkRows=[],unsub=null;
+const todayUTC=()=>{const n=new Date();return Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())};
+// Inisial dari nama tampilan, atau dari bagian depan email (maks. 2 huruf)
+function initials(u){const src=(u.displayName||u.email||"?").split("@")[0];
+  const w=src.split(/[\s._\-0-9]+/).filter(Boolean);
+  return((w.length>1?w[0][0]+w[1][0]:(w[0]||"?").slice(0,2))).toUpperCase()}
+let inv={items:{},stats:{}},moves=[],bat=[],items=[],unsub=null,logsDone=false;
 
-$("go").onclick=async()=>{$("msg").textContent="";
+$("go").onclick=async()=>{const b=$("go"),c=document.querySelector(".lc");$("msg").textContent="";b.classList.add("ld");b.disabled=true;
   try{await signInWithEmailAndPassword(auth,$("em").value.trim(),$("pw").value)}
-  catch(e){$("msg").textContent="Email atau password salah"}};
+  catch(e){$("msg").textContent="Email atau password salah";c.classList.remove("sh");void c.offsetWidth;c.classList.add("sh")}
+  b.classList.remove("ld");b.disabled=false};
+$("eye").onclick=()=>{const p=$("pw"),h=p.type==="password";p.type=h?"text":"password";$("eye").textContent=h?"Sembunyi":"Lihat"};
 $("pw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
 $("out").onclick=()=>signOut(auth);
 
@@ -87,77 +185,108 @@ onAuthStateChanged(auth,u=>{
   if(unsub){unsub();unsub=null}
   $("login").classList.toggle("hide",!!u);$("app").classList.toggle("hide",!u);
   if(!u)return;
-  $("who").textContent=u.email;
+  $("who").textContent=initials(u);logsDone=false;
   unsub=onSnapshot(doc(db,"warehouse","main","data","inventory"),s=>{
     inv=s.exists()?{items:s.data().items||{},stats:s.data().stats||{}}:{items:{},stats:{}};render();
   },()=>{signOut(auth);$("msg").textContent="Email ini tidak punya akses ke data."});
   const t=Date.now();$("d2").valueAsDate=new Date(t);$("d1").valueAsDate=new Date(t-29*DAY);loadMoves();
 });
 
-function status(q,e,min,tot){
-  if(q<=0)return["Habis","bad"];
-  if(e>0){const d=Math.floor((e-Date.UTC(...(()=>{const n=new Date();return[n.getFullYear(),n.getMonth(),n.getDate()]})()))/DAY);
-    if(d<0)return["Kedaluwarsa","bad"];if(d<=WARN)return["Segera ("+d+" hr)","warn"]}
+// tabel generik: sel = teks atau [teks, kelas]
+function tbl(id,head,rows){
+  $(id).innerHTML="<thead><tr>"+head.map(h=>`<th>${h}</th>`).join("")+"</tr></thead><tbody>"+
+   (rows.map(r=>"<tr>"+r.map((c,i)=>Array.isArray(c)?`<td data-l="${head[i]}"><span class="p ${c[1]}">${esc(c[0])}</span></td>`:`<td data-l="${head[i]}">${esc(c)}</td>`).join("")+"</tr>").join("")||`<tr><td colspan="${head.length}">Tidak ada data</td></tr>`)+"</tbody>"}
+const plain=r=>r.map(c=>Array.isArray(c)?c[0]:c);
+
+function status(b,min,tot){
+  if(b.q<=0)return["Habis","bad"];
+  if(b.e>0){const d=Math.floor((b.e-todayUTC())/DAY);if(d<0)return["Kedaluwarsa","bad"];if(d<=WARN)return["Segera ("+d+" hr)","warn"]}
   if(min>0&&tot<=min)return["Menipis","warn"];return["Aman","ok"]}
 
 function render(){
-  const items=Object.entries(inv.items).map(([c,v])=>({c,n:v.name||c,u:v.unit||"pcs",min:v.min||0,
+  items=Object.entries(inv.items).map(([c,v])=>({c,n:v.name||c,u:v.unit||"pcs",min:v.min||0,
     b:Object.entries(v.batches||{}).map(([no,b])=>({no,q:b.q||0,e:b.e||0}))})).sort((a,b)=>a.n.localeCompare(b.n));
-  let total=0,low=0,soon=0;stkRows=[];
+  bat=[];let total=0,low=0,soon=0;
   for(const i of items){
     const live=i.b.filter(x=>x.q>0).sort((a,b)=>(a.e||9e15)-(b.e||9e15)||a.no.localeCompare(b.no));
-    const tot=live.reduce((s,x)=>s+x.q,0);total+=tot;if(i.min>0&&tot<=i.min)low++;
-    if(!live.length)stkRows.push([i.c,i.n,"-",0+" "+i.u,"-","Habis","bad"]);
-    for(const b of live){const[s,k]=status(b.q,b.e,i.min,tot);if(k==="warn"&&s.startsWith("Segera")||s==="Kedaluwarsa")soon++;
-      stkRows.push([i.c,i.n,b.no,nf(b.q)+" "+i.u,fd(b.e),s,k])}}
+    i.tot=live.reduce((s,x)=>s+x.q,0);total+=i.tot;if(i.min>0&&i.tot<=i.min)low++;
+    for(const b of live){const st=status(b,i.min,i.tot);if(b.e>0&&(st[0]==="Kedaluwarsa"||st[0].startsWith("Segera")))soon++;bat.push({...b,c:i.c,n:i.n,u:i.u,min:i.min,tot:i.tot,st})}
+    if(!live.length)bat.push({no:"-",q:0,e:0,c:i.c,n:i.n,u:i.u,min:i.min,tot:0,st:["Habis","bad"]})}
   const td=inv.stats[dk(Date.now())]||{i:0,o:0};
   $("kpi").innerHTML=[["Total stok",nf(total)],["Jenis barang",nf(items.length)],["Masuk hari ini","+"+nf(td.i)],["Keluar hari ini","-"+nf(td.o)],["Stok menipis",nf(low)],["Hampir/lewat kedaluwarsa",nf(soon)]]
     .map(([l,v])=>`<div class="k"><b>${v}</b><span>${l}</span></div>`).join("");
-  drawStock();drawChart();
-}
-function drawStock(){const q=$("q").value.toLowerCase();
-  $("stk").innerHTML=stkRows.filter(r=>!q||r[0].toLowerCase().includes(q)||r[1].toLowerCase().includes(q))
-   .map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td><span class="p ${r[6]}">${esc(r[5])}</span></td></tr>`).join("")||`<tr><td colspan="6">Belum ada data</td></tr>`}
-$("q").oninput=drawStock;
+  drawStock();drawExp();drawLow();drawCharts();drawQR()}
 
-function drawChart(){
-  const days=[...Array(14)].map((_,k)=>{const t=Date.now()-(13-k)*DAY;const s=inv.stats[dk(t)]||{i:0,o:0};return{l:new Date(t).getDate(),i:s.i||0,o:s.o||0}});
-  const mx=Math.max(1,...days.map(d=>Math.max(d.i,d.o))),W=Math.max(560,days.length*44),H=150;
-  $("chart").setAttribute("width",W);
-  $("chart").innerHTML=days.map((d,k)=>{const x=k*44+8,hi=d.i/mx*H,ho=d.o/mx*H;
-    return`<rect x="${x}" y="${H-hi+10}" width="15" height="${hi}" rx="3" fill="var(--in)"/><rect x="${x+17}" y="${H-ho+10}" width="15" height="${ho}" rx="3" fill="var(--out)"/><text x="${x+16}" y="178" font-size="11" text-anchor="middle" fill="var(--mu)">${d.l}</text>`}).join("")
+const stockRows=()=>{const q=$("q").value.toLowerCase();return bat.filter(b=>!q||b.c.toLowerCase().includes(q)||b.n.toLowerCase().includes(q))
+  .map(b=>[b.c,b.n,b.no,nf(b.q)+" "+b.u,fd(b.e),b.st])};
+const expRows=()=>{const f=$("ef").value,t=todayUTC();
+  return bat.filter(b=>b.q>0&&b.e>0).map(b=>({...b,d:Math.floor((b.e-t)/DAY)})).filter(b=>f==="all"||(f==="0"?b.d<0:b.d<=+f)).sort((a,b)=>a.e-b.e)
+   .map(b=>[b.c,b.n,b.no,nf(b.q)+" "+b.u,fd(b.e),b.d<0?"Lewat "+(-b.d)+" hari":b.d+" hari lagi"])};
+const lowRows=()=>items.filter(i=>i.min>0&&i.tot<=i.min).sort((a,b)=>(a.tot-a.min)-(b.tot-b.min))
+  .map(i=>[i.c,i.n,nf(i.tot)+" "+i.u,nf(i.min)+" "+i.u,nf(i.min-i.tot)+" "+i.u]);
+const trxRows=()=>{const q=$("mq").value.toLowerCase(),t=$("mt").value;
+  return moves.filter(m=>(!t||m.type===t)&&(!q||[m.name,m.code,m.batch,m.ref,m.note].join(" ").toLowerCase().includes(q)))};
+
+const H={stok:["Kode","Nama","Batch","Sisa","Kedaluwarsa","Status"],exp:["Kode","Nama","Batch","Sisa","Kedaluwarsa","Sisa waktu"],
+  low:["Kode","Nama","Stok","Minimum","Kurang"],trx:["Waktu","Jenis","Kode","Barang","Batch","Jumlah","Satuan","Referensi","Catatan"]};
+function drawStock(){tbl("tb1",H.stok,stockRows())}
+function drawExp(){tbl("tb2",H.exp,expRows())}
+function drawLow(){tbl("tb3",H.low,lowRows())}
+function drawTrx(){const r=trxRows();
+  tbl("tb4",["Waktu","Jenis","Barang","Batch","Jumlah","Referensi","Catatan"],r.map(m=>[ft(m.ts),[m.type==="IN"?"Masuk":"Keluar",m.type==="IN"?"ok":"warn"],m.name+" ("+m.code+")",m.batch,nf(m.qty)+" "+m.unit,m.ref||"",m.note||""]));
+  $("mc").textContent=r.length+" transaksi"+(moves.length>=2000?" (dibatasi 2.000)":"");drawTop()}
+["q","ef","mq","mt"].forEach(id=>$(id).oninput=()=>{id==="q"?drawStock():id==="ef"?drawExp():drawTrx()});
+
+function bars(id,L,A,B){const mx=Math.max(1,...A,...B),W=L.length*44+16,H2=150;$(id).setAttribute("viewBox","0 0 "+W+" 190");
+  $(id).innerHTML=L.map((l,k)=>{const x=k*44+8,hi=A[k]/mx*H2,ho=B[k]/mx*H2;
+    return`<rect x="${x}" y="${H2-hi+10}" width="15" height="${hi}" rx="3" fill="var(--in)"/><rect x="${x+17}" y="${H2-ho+10}" width="15" height="${ho}" rx="3" fill="var(--out)"/><text x="${x+16}" y="178" font-size="11" text-anchor="middle" fill="var(--mu)">${l}</text>`}).join("")
    +`<text x="8" y="10" font-size="11" fill="var(--in)">■ Masuk</text><text x="70" y="10" font-size="11" fill="var(--out)">■ Keluar</text>`}
+function drawCharts(){
+  const N=matchMedia("(max-width:700px)").matches?7:14;$("nd").textContent=N;
+  const d=[...Array(N)].map((_,k)=>{const t=Date.now()-(N-1-k)*DAY;return[new Date(t).getDate(),inv.stats[dk(t)]||{}]});
+  bars("c1",d.map(x=>x[0]),d.map(x=>x[1].i||0),d.map(x=>x[1].o||0));
+  const now=new Date(),ms=[...Array(6)].map((_,k)=>new Date(now.getFullYear(),now.getMonth()-5+k,1));
+  const key=m=>m.getFullYear()+String(m.getMonth()+1).padStart(2,"0"),sum=(m,f)=>Object.entries(inv.stats).filter(([k])=>k.startsWith(key(m))).reduce((s,[,v])=>s+(v[f]||0),0);
+  bars("c2",ms.map(m=>m.toLocaleDateString("id-ID",{month:"short"})),ms.map(m=>sum(m,"i")),ms.map(m=>sum(m,"o")))}
+matchMedia("(max-width:700px)").addEventListener("change",()=>drawCharts());
+function drawTop(){const o={};moves.filter(m=>m.type==="OUT").forEach(m=>o[m.name]=(o[m.name]||0)+m.qty);
+  const a=Object.entries(o).sort((x,y)=>y[1]-x[1]).slice(0,10),mx=Math.max(1,...a.map(x=>x[1]));
+  $("topn").textContent="(rentang tanggal di tab Transaksi)";
+  $("top").innerHTML=a.map(([n,q])=>`<div class="hb"><span>${esc(n)}</span><i style="width:${q/mx*50}%"></i><span>${nf(q)}</span></div>`).join("")||"<p style='color:var(--mu)'>Belum ada barang keluar pada rentang ini.</p>"}
 
 async function loadMoves(){
   const a=new Date($("d1").value+"T00:00:00").getTime(),b=new Date($("d2").value+"T23:59:59").getTime();
   try{const s=await getDocs(query(collection(db,"warehouse","main","moves"),where("ts",">=",a),where("ts","<=",b),orderBy("ts","desc"),limit(2000)));
-    moves=s.docs.map(d=>d.data());
-    $("mv").innerHTML=moves.map(m=>`<tr><td>${ft(m.ts)}</td><td class="${m.type==="IN"?"ok":"warn"}">${m.type==="IN"?"Masuk":"Keluar"}</td><td>${esc(m.name)} (${esc(m.code)})</td><td>${esc(m.batch)}</td><td>${nf(m.qty)} ${esc(m.unit)}</td><td>${esc(m.ref)}</td><td>${esc(m.note)}</td></tr>`).join("")||`<tr><td colspan="7">Tidak ada transaksi</td></tr>`;
-    $("mc").textContent=moves.length+" transaksi"+(moves.length>=2000?" (dibatasi 2.000)":"")}
-  catch(e){$("mc").textContent="Gagal memuat transaksi"}}
+    moves=s.docs.map(d=>d.data());drawTrx()}catch(e){$("mc").textContent="Gagal memuat transaksi"}}
 $("ld").onclick=loadMoves;
 
-const tabs=["Ringkasan","Stok","Transaksi"];
-$("tabs").innerHTML=tabs.map((t,i)=>`<button data-i="${i}" class="${i?"":"on"}">${t}</button>`).join("");
-$("tabs").onclick=e=>{const i=e.target.dataset.i;if(i==null)return;
-  tabs.forEach((_,k)=>{$("t"+k).classList.toggle("hide",k!=i)});[...$("tabs").children].forEach((b,k)=>b.classList.toggle("on",k==i))};
+function drawQR(){const w=$("qrw");if(w.dataset.n==bat.length+"|"+bat.map(b=>b.q).join())return;w.dataset.n=bat.length+"|"+bat.map(b=>b.q).join();w.innerHTML="";
+  bat.filter(b=>b.no!=="-").forEach(b=>{const l=document.createElement("div");l.className="lbl";const q=document.createElement("div");l.appendChild(q);
+    l.insertAdjacentHTML("beforeend",`<b>${esc(b.n)}</b><br>Kode: ${esc(b.c)}<br>Batch: ${esc(b.no)}<br>${b.e>0?"Exp: "+fd(b.e):"Tanpa kedaluwarsa"}`);w.appendChild(l);
+    new QRCode(q,{text:"WHB:"+encodeURIComponent(b.c)+":"+encodeURIComponent(b.no),width:110,height:110,correctLevel:QRCode.CorrectLevel.M})})}
+$("pq").onclick=()=>window.print();
 
-const stockHead=["Kode","Nama","Batch","Sisa","Kedaluwarsa","Status"];
-const stockData=()=>stkRows.map(r=>r.slice(0,6));
-const moveHead=["Waktu","Jenis","Kode","Barang","Batch","Jumlah","Satuan","Referensi","Catatan"];
-const moveData=()=>moves.map(m=>[ft(m.ts),m.type==="IN"?"Masuk":"Keluar",m.code,m.name,m.batch,m.qty,m.unit,m.ref||"",m.note||""]);
-const stamp=()=>dk(Date.now());
+async function loadLogs(){logsDone=true;
+  try{const a=await getDocs(collection(db,"warehouse","main","sessions"));
+    tbl("tb6",["Email","Peran","Perangkat","Login"],a.docs.map(d=>d.data()).sort((x,y)=>y.ts-x.ts).map(v=>[v.email,v.role,v.device+" - "+v.os,ft(v.ts)]));
+    const h=await getDocs(query(collection(db,"warehouse","main","logins"),orderBy("ts","desc"),limit(100)));
+    tbl("tb7",["Waktu","Email","Peran","Kejadian","Perangkat","ID"],h.docs.map(d=>d.data()).map(v=>[ft(v.ts),v.email,v.role,[v.event==="LOGIN"?"Masuk":"Keluar",v.event==="LOGIN"?"ok":"warn"],v.device+" - "+v.os,v.deviceId||""]));
+    $("lm").textContent="Catatan dihapus otomatis setelah 30 hari."}
+  catch(e){logsDone=false;$("lm").textContent="Riwayat login hanya bisa dilihat admin utama."}}
 
-function xlsx(name,head,rows){const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([head,...rows]),"Data");XLSX.writeFile(wb,name+"-"+stamp()+".xlsx")}
-function pdf(name,title,head,rows,land){
-  const d=new window.jspdf.jsPDF({orientation:land?"landscape":"portrait"});
-  d.setFontSize(14);d.text(title,14,15);d.setFontSize(9);d.text("Dicetak "+ft(Date.now()),14,21);
-  d.autoTable({head:[head],body:rows,startY:25,styles:{fontSize:8},headStyles:{fillColor:[15,107,79]}});d.save(name+"-"+stamp()+".pdf")}
-$("xs").onclick=()=>xlsx("stok-warehouse",stockHead,stockData());
-$("ps").onclick=()=>pdf("stok-warehouse","Laporan Stok Warehouse",stockHead,stockData(),false);
-$("xm").onclick=()=>xlsx("transaksi-warehouse",moveHead,moveData());
-$("pm").onclick=()=>pdf("transaksi-warehouse","Laporan Transaksi ("+$("d1").value+" s/d "+$("d2").value+")",moveHead,moveData(),true);
+const tabs=["Ringkasan","Stok","Kedaluwarsa","Menipis","Transaksi","Label QR","Login"];
+$("tabs").innerHTML=tabs.map((t,i)=>`<button data-i="${i}">${t}</button>`).join("");
+function show(i){tabs.forEach((_,k)=>$("t"+k).classList.toggle("hide",k!=i));[...$("tabs").children].forEach((b,k)=>b.classList.toggle("on",k==i));if(i==6&&!logsDone)loadLogs()}
+$("tabs").onclick=e=>{const i=e.target.dataset.i;if(i!=null)show(+i)};show(0);
+
+const DS={stok:()=>({t:"Laporan Stok Warehouse",h:H.stok,r:stockRows().map(plain)}),exp:()=>({t:"Laporan Kedaluwarsa",h:H.exp,r:expRows()}),
+  low:()=>({t:"Daftar Stok Menipis",h:H.low,r:lowRows()}),
+  trx:()=>({t:"Laporan Transaksi ("+$("d1").value+" s/d "+$("d2").value+")",h:H.trx,land:1,
+    r:trxRows().map(m=>[ft(m.ts),m.type==="IN"?"Masuk":"Keluar",m.code,m.name,m.batch,m.qty,m.unit,m.ref||"",m.note||""])})};
+document.addEventListener("click",e=>{const x=e.target.dataset.x;if(!x)return;const d=DS[x](),n=x+"-warehouse-"+dk(Date.now());
+  if(e.target.dataset.f==="xlsx"){const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([d.h,...d.r]),"Data");XLSX.writeFile(wb,n+".xlsx")}
+  else{const p=new window.jspdf.jsPDF({orientation:d.land?"landscape":"portrait"});p.setFontSize(14);p.text(d.t,14,15);p.setFontSize(9);p.text("Dicetak "+ft(Date.now()),14,21);
+    p.autoTable({head:[d.h],body:d.r,startY:25,styles:{fontSize:8},headStyles:{fillColor:[15,107,79]}});p.save(n+".pdf")}});
 </script>
 </body>
 </html>
