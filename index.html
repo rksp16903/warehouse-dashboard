@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f6b4f">
+<meta name="referrer" content="no-referrer">
+<!-- CSP OPSIONAL (GitHub Pages tidak bisa mengatur header HTTP, jadi lewat meta).
+     Aktifkan dengan menghapus tanda komentar, lalu UJI: login, tab Transaksi, grafik, Label QR, Unduh XLSX/PDF.
+     Bila ada fitur yang berhenti, buka Console browser (F12) untuk melihat pesan "Content Security Policy",
+     atau kembalikan komentarnya.
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://*.googleapis.com; frame-src https://warehouse-7f2d8.firebaseapp.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+-->
 <title>Warehouse Dashboard</title>
 <style>
 :root{--bg:#f5f3ee;--card:#fff;--tx:#17211c;--mu:#66736b;--pr:#0f6b4f;--ln:#e2e6e1;--ok:#1b8a5a;--bad:#c8472b;--warn:#c98a10;--in:#1b8a5a;--out:#e07a3f}
@@ -193,17 +200,21 @@ button{background:var(--grad)}button.g{background:transparent}
 </main>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getAuth,setPersistence,browserSessionPersistence,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {getFirestore,doc,onSnapshot,collection,query,where,orderBy,limit,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const cfg={apiKey:"AIzaSyAZ7bQV2HblzVuL6FsUT57u3KipQb6XxGM",authDomain:"warehouse-7f2d8.firebaseapp.com",projectId:"warehouse-7f2d8",appId:"1:92141578835:web:5d97e790763981cb1c34a6"};
+// Jangan tampil di dalam iframe situs lain (cegah clickjacking; header frame-ancestors tidak tersedia di GitHub Pages).
+if(window.top!==window.self){document.documentElement.hidden=true;throw new Error("framed")}
 const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);
+// Login hanya hidup selama tab terbuka (tidak tersimpan permanen di PC bersama).
+setPersistence(auth,browserSessionPersistence).catch(()=>{});
 const $=id=>document.getElementById(id),DAY=864e5,WARN=30;
 const nf=n=>Number(n||0).toLocaleString("id-ID");
 const dk=t=>{const d=new Date(t);return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")};
@@ -215,9 +226,7 @@ const todayUTC=()=>{const n=new Date();return Date.UTC(n.getFullYear(),n.getMont
 function initials(u){const src=(u.displayName||u.email||"?").split("@")[0];
   const w=src.split(/[\s._\-0-9]+/).filter(Boolean);
   return((w.length>1?w[0][0]+w[1][0]:(w[0]||"?").slice(0,2))).toUpperCase()}
-// Peran akun. Samakan dengan AllowedUsers.kt dan firestore.rules (email huruf kecil semua).
-const ROLES={"Admin utama":["alizaghazia@gmail.com"],"Admin barang masuk":["admin2@example.com"],"Admin barang keluar":["admin3@example.com"],"User":["user@example.com"]};
-const roleOf=e=>{e=(e||"").trim().toLowerCase();return Object.keys(ROLES).find(r=>ROLES[r].includes(e))||"User"};
+// Hak akses ditentukan SERVER (firestore.rules). Halaman ini tidak memuat daftar email peran.
 let isMain=false;
 let inv={items:{},stats:{}},moves=[],bat=[],items=[],unsub=null,logsDone=false;
 
@@ -231,14 +240,23 @@ $("fp").onclick=async e=>{e.preventDefault();const m=$("em").value.trim();if(!m)
 $("eye").onclick=()=>{const p=$("pw"),h=p.type==="password";p.type=h?"text":"password";$("eye").textContent=h?"Sembunyi":"Lihat"};
 $("pw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
 $("out").onclick=()=>signOut(auth);
+// Logout otomatis bila tidak ada aktivitas 15 menit.
+const IDLE_MS=15*60*1000;let idleT=null,lastBump=0;
+function bump(force){const n=Date.now();if(!force&&n-lastBump<1000)return;lastBump=n;clearTimeout(idleT);
+  if(auth.currentUser)idleT=setTimeout(()=>{signOut(auth);$("msg").style.color="";$("msg").textContent="Sesi berakhir karena tidak ada aktivitas. Silakan masuk lagi."},IDLE_MS)}
+["click","keydown","mousemove","touchstart","scroll"].forEach(ev=>addEventListener(ev,()=>bump(false),{passive:true,capture:true}));
 
 onAuthStateChanged(auth,u=>{
   if(unsub){unsub();unsub=null}
   $("login").classList.toggle("hide",!!u);$("app").classList.toggle("hide",!u);
-  if(!u)return;
-  $("who").textContent=initials(u);
-  const role=roleOf(u.email);isMain=role==="Admin utama";$("rl").textContent=role;
-  $("tabs").children[6].classList.toggle("hide",!isMain);   // tab Login hanya untuk admin utama
+  if(!u){clearTimeout(idleT);isMain=false;return}
+  bump(true);
+  $("who").textContent=initials(u);$("rl").textContent=u.email||"";
+  // Tab Login hanya muncul bila server mengizinkan membaca riwayat login (admin utama): aturan Firestore yang memutuskan.
+  isMain=false;$("tabs").children[6].classList.add("hide");
+  getDocs(query(collection(db,"warehouse","main","logins"),limit(1)))
+    .then(()=>{if(auth.currentUser&&auth.currentUser.uid===u.uid){isMain=true;$("tabs").children[6].classList.remove("hide")}})
+    .catch(()=>{});
   if(!isMain&&!$("t6").classList.contains("hide"))show(0);logsDone=false;
   unsub=onSnapshot(doc(db,"warehouse","main","data","inventory"),s=>{
     inv=s.exists()?{items:s.data().items||{},stats:s.data().stats||{}}:{items:{},stats:{}};render();
